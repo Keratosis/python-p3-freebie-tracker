@@ -26,6 +26,23 @@ class Dev(Base):
 
     def __repr__(self):
         return f'<Dev {self.name}>'
+    
+    @property
+    def freebies(self):
+        return self.freebies
+
+    @property
+    def companies(self):
+        return [freebie.company for freebie in self.freebies]
+
+    def received_one(self, item_name):
+        return any(freebie.item_name == item_name for freebie in self.freebies)
+
+    def give_away(self, dev, freebie):
+        if freebie.dev == self:
+            freebie.dev = dev
+    
+    
 
 class Freebie(Base):
     __tablename__ = 'freebies'
